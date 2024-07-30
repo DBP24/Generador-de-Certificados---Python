@@ -1,0 +1,27 @@
+.__logo{
+    width: 250px;
+}
+.__nav_logo{
+    width: 150px;
+}
+
+.__perfil{
+    width: 50px;
+    border-radius: 50%;
+}
+
+.nav-item a{
+    font-weight:800;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+}
+
+.nav-item{
+    padding-left: 100px !important;
+}
+
+.bg__{
+
+    background: -webkit-linear-gradient(90deg, #2e4d43,#2d544e,#2c5b5a,#2c6266,#2e6873);/* Chrome 10-25, Safari 5.1-6 */                          
+    background: linear-gradient(90deg, #2e4d43,#2d544e,#2c5b5a,#2c6266,#2e6873);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */                                             
+}
