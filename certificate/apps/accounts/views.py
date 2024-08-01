@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView
 
 from .forms import LoginForm
 from apps.certificate.forms import CargarDocumentoForm
+from apps.certificate.utils import cargar_hoja
 from django.urls import reverse_lazy
 
 
@@ -30,9 +31,13 @@ def logout_view(request):
 @login_required
 def dashboard(request):
     if request.user.groups.filter(name="Administrador").exists():
-        
-        form = CargarDocumentoForm()
-        return render(request,'account/dashboard.html',{'form': form})
+        hojas =  cargar_hoja()
+        opciones_archivo = [(hoja['properties']['title'], hoja['properties']['title']) for hoja in hojas]
+        form = CargarDocumentoForm(opciones_archivo=opciones_archivo)
+        context = {
+            'form' : form
+        }
+        return render(request,'account/dashboard.html', context)
     else:
         # return render(request,'accounts/clients.html',{'section': 'Cliente'})
         logout(request)

@@ -1,65 +1,92 @@
 {% extends 'layouts/full_nav.html' %}
 {% block title %} Cargas Datos {% endblock %}
 {% block content %}
+
 <div class="container">
     <div class="row">
-        {% if not contenido %}
+
         <div class="col-md-12 mt-3">
-            
-            <form class="row g-3" action="{% url 'certificate:cargar' %}"  method="POST">
+
+            <form class="row g-3" action="{% url 'certificate:cargar' %}" method="POST">
                 {% csrf_token %}
                 <div class="col-4">
-                  
-                  <!-- <input type="text" class="form-control" id="inputPassword2" name="inputPassword2" placeholder="Ingresa el nombre de la Hoja a cargar los datos"> -->
-                  {% for field in form %}
-                
-                      {{ field }}
-                      {% for error in field.errors %}
-                          <span class="alert alert-danger">{{ error }}</span>
-                      {% endfor %}
-              
-              {% endfor %}  
+                    {% for field in form %}
+
+                    {{ field }}
+                    {% for error in field.errors %}
+                    <span class="alert alert-danger">{{ error }}</span>
+                    {% endfor %}
+
+                    {% endfor %}
                 </div>
-                <div class="col-8">
-                  <button type="submit" class="btn btn-primary mb-3">Cargar Datos desde Google sheets</button>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary mb-3">Cargar Datos desde Google sheets</button>
+                </div>
+                <div class="col-4">
+                    {% if name_hoja%}
+                    <h5 class=" __h5">Se recupero datos de la hoja <strong>"{{name_hoja}}"</strong></h5>
+                    {% endif%}
+                    
                 </div>
             </form>
+            {% if identifier == 'C' or identifier == 'c' %}
+            <a href="{% url 'certificate:recuperar' %}" class="btn btn-success mb-3">Generemos los certificados ...</a>
+            <a href="{% url 'certificate:list_certificates' %}" class="btn btn-success mb-3">Listar Certificados</a>
+            {% endif%}
+
             {% if messages %}
             <div class="alert-container">
                 {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}" role="alert">
-                        {{ message }}
-                    </div>
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
                 {% endfor %}
             </div>
-        {% endif %}
+            {% endif %}
         </div>
-        {% else %}
-            <h4> vamos los datos ya se han cargado <a href="#">GENERAR CERTIFICADOS</a> </h4>
-        {% endif %}
+        <hr>
         <div class="col-md-12">
             {% if contenido %}
-            <table class="table table-striped">
+            <table class="table table-striped display" id="example"  style="width:100%">
                 <thead>
                     <tr>
                         {% for encabezado in encabezados %}
-                            <th>{{ encabezado }}</th>
+                        <th>{{ encabezado }}</th>
                         {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
                     {% for fila in contenido %}
-                        
-                        <tr>
-                            {% for celda in fila %}
-                                <td>{{ celda }}</td>
-                            {% endfor %}
-                        </tr>
+
+                    <tr>
+                        {% for celda in fila %}
+                        <td>{{ celda }}</td>
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        {% endif %}
+            {% endif %}
         </div>
+
     </div>
 </div>
 {% endblock %}
+{% block script %}
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        try {
+            new DataTable('#example', {
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/2.1.2/i18n/es-ES.json'
+                }
+            });
+            console.log('DataTable inicializada correctamente.');
+        } catch (error) {
+            console.error('Error al inicializar DataTable:', error);
+        }
+    });
+</script>
+{% endblock %}
+

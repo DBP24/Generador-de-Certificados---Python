@@ -21,7 +21,16 @@
 }
 
 .bg__{
+    background: rgba(94, 94, 205, 0.647);
+    /* background: -webkit-linear-gradient(90deg, #2e4d43,#2d544e,#2c5b5a,#2c6266,#2e6873);                
+    background: linear-gradient(90deg, #2e4d43,#2d544e,#2c5b5a,#2c6266,#2e6873);                                            */
+}
 
-    background: -webkit-linear-gradient(90deg, #2e4d43,#2d544e,#2c5b5a,#2c6266,#2e6873);/* Chrome 10-25, Safari 5.1-6 */                          
-    background: linear-gradient(90deg, #2e4d43,#2d544e,#2c5b5a,#2c6266,#2e6873);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */                                             
+.__h5{
+    padding: 10px;
+    color: black;
+    background: rgba(94, 94, 205, 0.647);
+    border-radius: 5px;
+    font-size: 18px;
+    text-align: center;
 }

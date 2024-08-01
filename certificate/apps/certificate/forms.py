@@ -3,10 +3,16 @@ from django.core.exceptions import ValidationError
 
 
 class CargarDocumentoForm(forms.Form):
-    archivo_ruta = forms.CharField(
+    name_hoja = forms.ChoiceField(
         label=None,
-        max_length=255,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingresa en nombre de la hoja o identificador'})
+        choices=[],
+        widget=forms.Select(attrs={'class': 'form-select'})
     )
+
+    def __init__(self, *args, opciones_archivo=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        if opciones_archivo:
+            self.fields['name_hoja'].choices = opciones_archivo
+    
     
     
